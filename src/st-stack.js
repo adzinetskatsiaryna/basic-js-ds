@@ -16,16 +16,17 @@ const { NotImplementedError } = require('../extensions/index.js');
    constructor(){
      this.stack = []
    }
+   //добавляет элемент в стек
   push( element ) {
    this.stack.push(element)
   }
-
+//возвращает верхний элемент и удаляет его, возвращает 1
   pop() {
    if(this.stack.length){
     return this.stack.pop()
    }
   }
-
+//возвращает верхний элемент, но не удаляет его, возвращает 1
   peek() {
     if(this.stack.length){
       return this.stack[this.stack.length-1]
