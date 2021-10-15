@@ -15,8 +15,7 @@ const { ListNode } = require('../extensions/list-node.js');
  */
 module.exports = class Queue {
  constructor() {
-    this.head = null;
-    this.tail = null;
+    this.head = null; // первого элемента пока нет
     this.length = 0;
   }
 
@@ -24,25 +23,25 @@ module.exports = class Queue {
   getUnderlyingList() {
     return this.head;
   }
-
+//помещаем значение в конец очереди
   enqueue(value) {
-    const node = new ListNode(value);
-
-    if (this.head) {
-      this.tail.next = node;
-      this.tail = node;
-    } else {
-      this.head = node;
-      this.tail = node;
-    }
-    this.length++;
+   if(this.length === 0){
+     this.head = new ListNode(value); // если список пуст, создаем новый листнод и присваиваем его значение первому элементу
+   }else{
+     let current = this.head; // если элементы были, то мы получаем ссылку на текущий элемент(начало списка)
+     while (current.next) { //двигаемся к последнему узлу, у текущего расматривоемого (есть поле next  и оно не равно null)
+       current = current.next //постоянно меняем ссылку на текущий элемент, двигаясь к последнему элементу. как только у него next=null, мы добавляем в конец новый нод
+     }
+     current.next = new ListNode(value)
+   }
+   this.length ++ // увеличиваем длину
   }
-
+//удадяем значение из начала очереди
   dequeue() {
-    const current = this.head;
-    this.head = this.head.next;
-    this.length--;
+    const current = this.head; //находим текущую позицию head
+    this.head = this.head.next; //теперь head равен следующему элементу за ним
+    this.length--; //уменьшаем длину
 
-    return current.value;
+    return current.value; //возвращаем значение удаленного head записанного в current
   }
 }
